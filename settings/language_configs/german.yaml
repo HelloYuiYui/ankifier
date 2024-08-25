@@ -1,0 +1,30 @@
+default:
+  front: (.forms[] | select(.tags == ["canonical"]).form) // .word
+  back: try(.senses[].glosses) // .senses[].raw_glosses
+
+adj:
+  front: (.forms[] | select(.tags == ["masculine", "nominative"]).form) // .word
+  back: .senses[].glosses
+
+noun:
+  front: 
+    if (.head_templates[].args["1"] | .[:1] == "f") then "die " 
+    elif (.head_templates[].args["1"] | .[:1] == "m") then "der " 
+    elif (.head_templates[].args["1"] | .[:1] == "n") then "das " 
+    else "unknown" end
+    + (.forms[] | select(.source == "declension" and ((.tags == ["nominative", "singular"]) or (.tags == ["nominative", "plural"]))).form)
+    + "<br>(" + (.forms[] | select(.tags == ["plural"]).form) + ")"
+    // if (.head_templates[].args["1"] | .[:1] == "f") then "die " 
+    elif (.head_templates[].args["1"] | .[:1] == "m") then "der " 
+    elif (.head_templates[].args["1"] | .[:1] == "n") then "das " 
+    else "unknown" end
+    + (.forms[] | select(.source == "declension" and ((.tags == ["nominative", "singular"]) or (.tags == ["nominative", "plural"]))).form)
+    + "<br>(no plural)"
+    // .word
+  back: .senses[].glosses
+
+verb:
+  front:
+    (.forms[] | select(.tags == ["infinitive"]).form) + "<br>" + (.forms[] | select(.tags == ["past"]).form)
+    // .word
+  back: .senses[].glosses
