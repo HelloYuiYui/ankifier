@@ -13,18 +13,22 @@ noun:
     elif (.head_templates[].args["1"] | .[:1] == "n") then "das " 
     else "unknown" end
     + (.forms[] | select(.source == "declension" and ((.tags == ["nominative", "singular"]) or (.tags == ["nominative", "plural"]))).form)
-    + "<br>(" + (.forms[] | select(.tags == ["plural"]).form) + ")"
+    + "<br><i>(" + (.forms[] | select(.tags == ["plural"]).form) + ")</i>"
     // if (.head_templates[].args["1"] | .[:1] == "f") then "die " 
     elif (.head_templates[].args["1"] | .[:1] == "m") then "der " 
     elif (.head_templates[].args["1"] | .[:1] == "n") then "das " 
     else "unknown" end
     + (.forms[] | select(.source == "declension" and ((.tags == ["nominative", "singular"]) or (.tags == ["nominative", "plural"]))).form)
-    + "<br>(no plural)"
+    + "<br><i>(no plural)</i>"
     // .word
   back: .senses[].glosses
 
 verb:
   front:
-    (.forms[] | select(.tags == ["infinitive"]).form) + "<br>" + (.forms[] | select(.tags == ["past"]).form)
+    (.forms[] | select(.tags == ["infinitive"]).form) + "<br><i>" + (.forms[] | select(.tags == ["past"]).form) + "</i><br><i>" + (.forms[] | select(.tags == ["auxiliary"]).form) + " " + (.forms[] | select(.tags == ["participle", "past"]).form) + "</i>"
     // .word
+  back: .senses[].glosses
+
+adv:
+  front: .head_templates[].expansion // .word
   back: .senses[].glosses

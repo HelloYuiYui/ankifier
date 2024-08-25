@@ -246,6 +246,13 @@ def retrieve_fields(entry, fields):
 
     if not res:
         return []
+    
+    if len(res) > 1:
+        unique_res = []
+        for r in res:
+            if r not in unique_res:
+                unique_res.append(r)
+        res = unique_res
 
     if type(res[0]) is list:
         res = list(itertools.chain(*res))
