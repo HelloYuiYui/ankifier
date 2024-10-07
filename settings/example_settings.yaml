@@ -1,7 +1,7 @@
 # High-level config
 ankifier_config:
   mongodb_name: ankifier # Mongo database - same as for `import_data.sh`
-  deepl_api_key: 2914650b-963b-4e66-92d2-7f6a1a39f703:fx # Your DeepL API key
+  deepl_api_key: YOUR_DEEPL_KEY # Your DeepL API key
 
 # One config for each language you want to generate cards for. 
 language_configs:
